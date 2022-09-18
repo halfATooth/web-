@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.test.mapper.CourseMapper">
+
+    <insert id="addCourse" parameterType="com.example.test.bean.Course">
+        INSERT INTO course_info (id,course_name,book_name,res_name,ppt_url,teacher, class_time,class_place, point)
+        VALUES (#{id},#{courseName},#{bookName},#{resName},#{pptUrl},#{teacher},#{classTime},#{classPlace},#{point})
+    </insert>
+    <select id="getCourses" resultType="com.example.test.bean.Course">
+        SELECT *
+        FROM course_info ci
+    </select>
+
+
+    <insert id="addSelectedCourse" parameterType="com.example.test.bean.SelectedCourse">
+        INSERT INTO select_course_info (id,select_course_id)
+        VALUES (#{id},#{selectCourseId})
+    </insert>
+    <select id="getSelectedCourse" resultType="com.example.test.bean.Course">
+        SELECT course_info.*
+        FROM course_info INNER JOIN select_course_info
+        ON select_course_info.id = #{id}
+        AND course_info.id = select_course_info.select_course_id
+    </select>
+
+
+    <insert id="addAbsence" parameterType="com.example.test.bean.Absence">
+        INSERT INTO absence (id,skip_course_name,skip_course_date,skip_course_teacher)
+        VALUES (#{id},#{skipCourseName},#{skipCourseDate},#{skipCourseTeacher})
+    </insert>
+    <select id="getAbsence" resultType="com.example.test.bean.Absence">
+        SELECT *
+        FROM absence ab
+        WHERE ab.id = #{id}
+    </select>
+
+    <insert id="addHomework" parameterType="com.example.test.bean.Homework">
+        INSERT INTO homework (id,homework_name,homework_date,teacher,assessment)
+        VALUES (#{id},#{homeworkName},#{homeworkDate},#{teacher},#{assessment})
+    </insert>
+    <select id="getHomework" resultType="com.example.test.bean.Homework">
+        SELECT *
+        FROM homework hw
+        WHERE hw.id = #{id}
+    </select>
+
+
+    <insert id="addGrades" parameterType="com.example.test.bean.Grades">
+        INSERT INTO grades (id,higher,linear_p,discrete_p,physics_p,java_points,cpp_p)
+        VALUES (#{id},#{higher},#{linear},#{discrete},#{physics},#{javaPoints},#{cpp})
+    </insert>
+    <select id="getGrades" resultType="com.example.test.bean.Grades">
+        SELECT *
+        FROM grades gr
+        WHERE gr.id = #{id}
+    </select>
+    <select id="getAllGrades" resultType="com.example.test.bean.Grades">
+        SELECT *
+        FROM grades gr
+    </select>
+
+</mapper>

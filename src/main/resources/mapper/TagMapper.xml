@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.test.mapper.TagMapper">
+
+    <insert id="addTag" parameterType="com.example.test.bean.Tag">
+        INSERT INTO tag (id,gpa,rate,cost)
+        VALUES (#{id},#{gpa},#{rate},#{cost})
+    </insert>
+    <select id="getTags" resultType="com.example.test.bean.Tag">
+        SELECT *
+        FROM tag
+        ORDER BY gpa
+    </select>
+    <delete id="deleteTags" parameterType="com.example.test.bean.Tag">
+        DELETE FROM tag
+    </delete>
+    <update id="updateTags" parameterType="com.example.test.bean.Tag">
+        UPDATE tag
+        SET gpa = #{gpa},rate = #{rate},cost = #{cost}
+        WHERE id = #{id}
+    </update>
+
+</mapper>

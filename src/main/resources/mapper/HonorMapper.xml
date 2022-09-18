@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.test.mapper.HonorMapper">
+
+    <insert id="addHonor" parameterType="com.example.test.bean.Honor">
+        INSERT INTO add_honor (id,honor)
+        VALUES (#{id},#{honor})
+    </insert>
+    <insert id="setHonor" parameterType="com.example.test.bean.Honor">
+        INSERT INTO honor (details)
+        VALUES (#{details})
+    </insert>
+    <select id="getHonor" resultType="com.example.test.bean.Honor">
+        SELECT *
+        FROM honor h INNER JOIN add_honor
+        ON add_honor.id = #{id}
+        AND h.id = add_honor.honor
+    </select>
+    <select id="getSetHonor" resultType="com.example.test.bean.Honor">
+        SELECT *
+        FROM honor h
+    </select>
+
+</mapper>

@@ -1,0 +1,15 @@
+server:
+  port: 8083
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://rm-bp1k51kpn669tr888jo.mysql.rds.aliyuncs.com:3306/web?useUnicode=true&useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: lhs
+    password: Lihaoshuo2003
+  mail:
+    host: smtp.qq.com
+    port: 25
+    username: 2141619409@qq.com
+    password: pjghdfmcvavgdddb
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**Mapper.xml

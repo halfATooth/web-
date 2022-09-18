@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.test.mapper.VerificationCodeMapper">
+    <select id="getCodeByName" resultType="java.lang.Integer">
+        SELECT
+            vc.code
+        FROM
+            verification_code vc
+        WHERE
+            vc.username = #{username}
+    </select>
+    <select id="getTime" resultType="java.lang.Long">
+        SELECT
+            vc.check_time
+        FROM
+            verification_code vc
+        WHERE
+            vc.username = #{username}
+    </select>
+    <insert id="addCode" parameterType="com.example.test.bean.VerificationCode">
+        insert into verification_code(username,check_time,code)
+        values(#{username},#{check_time},#{code})
+    </insert>
+    <update id="updateCode" parameterType="com.example.test.bean.VerificationCode">
+        UPDATE verification_code
+        SET check_time = #{check_time}, code = #{code}
+        WHERE username = #{username}
+    </update>
+</mapper>

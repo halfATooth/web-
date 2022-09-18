@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.test.mapper.PaymentMapper">
+
+    <insert id="addPayment" parameterType="com.example.test.bean.Payment">
+        INSERT INTO payment (id,pay_time,amount)
+        VALUES (#{id},#{payTime},#{amount})
+    </insert>
+    <select id="getPayment" resultType="com.example.test.bean.Payment">
+        SELECT *
+        FROM payment p
+        WHERE p.id = #{id}
+    </select>
+
+</mapper>
