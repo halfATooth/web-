@@ -52,6 +52,7 @@ public class IdentityFilter implements Filter {
                 map.put("errorMsg", "未携带token信息");
                 map.put("code", "3");
             }
+
             JSONObject jsonObject = new JSONObject(map);
             servletResponse.setContentType("application/json");
             //设置响应的编码
