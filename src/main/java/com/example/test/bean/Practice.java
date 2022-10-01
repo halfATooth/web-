@@ -4,14 +4,14 @@ import lombok.Data;
 
 @Data
 public class Practice {
-    private int id;
+    private String studentNum;
     private String description;
     private String practiceTime;
     private Double hours;
     private String practiceType;
 
-    public Practice(int id, String description, String practiceTime, Double hours, String practiceType) {
-        this.id = id;
+    public Practice(String studentNum, String description, String practiceTime, Double hours, String practiceType) {
+        this.studentNum = studentNum;
         this.description = description;
         this.practiceTime = practiceTime;
         this.hours = hours;

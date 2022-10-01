@@ -19,37 +19,37 @@ public class PracticeController {
 
     @ResponseBody
     @PostMapping("/social")
-    public Map<String,String> social(Integer id, String description, String time,Double hours){
-        return practiceService.addPractice( id, description, time, hours, "social");
+    public Map<String,String> social(String studentNum, String description, String time,Double hours){
+        return practiceService.addPractice( studentNum, description, time, hours, "social");
     }
 
     @ResponseBody
     @PostMapping("/contest")
-    public Map<String,String> contest(Integer id, String description, String time,Double hours){
-        return practiceService.addPractice( id, description, time, hours, "contest");
+    public Map<String,String> contest(String studentNum, String description, String time,Double hours){
+        return practiceService.addPractice( studentNum, description, time, hours, "contest");
     }
 
     @ResponseBody
     @PostMapping("/tech")
-    public Map<String,String> tech(Integer id, String description, String time,Double hours){
-        return practiceService.addPractice( id, description, time, hours, "tech");
+    public Map<String,String> tech(String studentNum, String description, String time,Double hours){
+        return practiceService.addPractice( studentNum, description, time, hours, "tech");
     }
 
     @ResponseBody
     @PostMapping("/lecture")
-    public Map<String,String> lecture(Integer id, String description, String time,Double hours){
-        return practiceService.addPractice( id, description, time, hours, "lecture");
+    public Map<String,String> lecture(String studentNum, String description, String time,Double hours){
+        return practiceService.addPractice( studentNum, description, time, hours, "lecture");
     }
 
     @ResponseBody
     @PostMapping("/innovation")
-    public Map<String,String> innovation(Integer id, String description, String time,Double hours){
-        return practiceService.addPractice( id, description, time, hours, "innovation");
+    public Map<String,String> innovation(String studentNum, String description, String time,Double hours){
+        return practiceService.addPractice( studentNum, description, time, hours, "innovation");
     }
 
     @ResponseBody
     @PostMapping("/internship")
-    public Map<String,String> internship(Integer id, String description, String time,Double hours){
-        return practiceService.addPractice( id, description, time, hours, "internship");
+    public Map<String,String> internship(String studentNum, String description, String time,Double hours){
+        return practiceService.addPractice( studentNum, description, time, hours, "internship");
     }
 }

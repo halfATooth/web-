@@ -36,6 +36,14 @@
         WHERE
             su.username = #{username}
     </select>
+    <select id="getRole" resultType="java.lang.String">
+        SELECT
+            su.roles
+        FROM
+            user su
+        WHERE
+            su.id = #{id}
+    </select>
     <insert id="addUser" keyProperty="id" useGeneratedKeys="true" parameterType="com.example.test.bean.User">
         insert into user(username,password,roles)
         values(#{username},#{password},#{role})

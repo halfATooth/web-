@@ -18,38 +18,22 @@ public class StudentController {
     @ResponseBody
     @PostMapping("/addStudent")
     public Map<String,String> getStuInfo(String studentName, String studentNum,
-              Integer sex, Integer age, String birthday, String telephone,String pName,String pPosition,
-              String pEnterDate,String pGraduateDate,String jName,String jPosition,String jEnterDate,
-              String jGraduateDate,String sName,String sPosition,String sEnterDate,String sGraduateDate,
-              Integer familyNum,String familyPosition,String fName,String fPhone,String fWorkplace,
-              String mName,String mPhone,String mWorkplace){
-        return studentService.addStudent(studentName,studentNum,sex,age,birthday,telephone,pName,pPosition,
-                pEnterDate, pGraduateDate, jName, jPosition, jEnterDate,
-                jGraduateDate, sName, sPosition, sEnterDate, sGraduateDate,
-                familyNum, familyPosition, fName, fPhone, fWorkplace,
-                mName, mPhone, mWorkplace);
+              Integer sex, Integer age, String birthday, String telephone){
+        return studentService.addStudent(studentName,studentNum,sex,age,birthday,telephone);
     }
 
     @ResponseBody
     @PostMapping("/updateStu")
-    public Map<String,String> update(Integer id,String studentName, String studentNum,
-              Integer sex, Integer age, String birthday, String telephone,String pName,String pPosition,
-              String pEnterDate,String pGraduateDate,String jName,String jPosition,String jEnterDate,
-              String jGraduateDate,String sName,String sPosition,String sEnterDate,String sGraduateDate,
-              Integer familyNum,String familyPosition,String fName,String fPhone,String fWorkplace,
-              String mName,String mPhone,String mWorkplace){
+    public Map<String,String> update(String studentName, String studentNum,
+              Integer sex, Integer age, String birthday, String telephone){
 
-        return studentService.updateStudent(id,studentName,studentNum,sex,age,birthday,telephone,pName,pPosition,
-                pEnterDate, pGraduateDate, jName, jPosition, jEnterDate,
-                jGraduateDate, sName, sPosition, sEnterDate, sGraduateDate,
-                familyNum, familyPosition, fName, fPhone, fWorkplace,
-                mName, mPhone, mWorkplace);
+        return studentService.updateStudent(studentName,studentNum,sex,age,birthday,telephone);
     }
 
     @ResponseBody
     @RequestMapping("/getStuBaseInfo")
-    public Map<String,String> getBase(Integer id){
-        return studentService.getStuBaseInfo(id);
+    public Map<String,String> getBase(String num){
+        return studentService.getStuBaseInfo(num);
     }
 
     @ResponseBody

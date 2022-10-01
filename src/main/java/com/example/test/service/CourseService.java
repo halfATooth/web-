@@ -15,6 +15,5 @@ public interface CourseService {
     Map<String,String> addHomework(Integer id, String homeworkName, String homeworkDate, String teacher,
                                    String assessment);
 
-    Map<String,String> addGrades(Integer id, Double higher, Double linear, Double discrete, Double physics,
-                                 Double javaPoints, Double cpp);
+    Map<String,String> addGrades(String data);
 }

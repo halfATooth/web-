@@ -28,10 +28,10 @@ public class GetAllInfoImpl implements GetAllInfo {
     TagMapper tagMapper;
 
     @Override
-    public Map getStudent(Integer id) {
+    public Map getStudent(String studentNum) {
         Map res = new HashMap<>();
-        if(id != null){
-            Student student = studentMapper.getStudent(studentMapper.getNumById(id));
+        if(studentNum != null){
+            Student student = studentMapper.getStudent(studentNum);
             res.put("student",student);
         }else{
             List<Student> students = studentMapper.getStudentAll();
@@ -56,21 +56,21 @@ public class GetAllInfoImpl implements GetAllInfo {
     @Override
     public Map getCourse(Integer id) {
         Map res = new HashMap<>();
-        List<Course> sc = courseMapper.getSelectedCourse(id);
-        List<Absence> ab = courseMapper.getAbsence(id);
-        List<Homework> hw = courseMapper.getHomework(id);
-        List<Grades> gr = courseMapper.getGrades(id);
-        List<Double> gpas = new ArrayList<>();
-        for (Grades grades : gr) {
-            Double gpa = grades.getGpa();
-            gpas.add(gpa);
-        }
-        //res.put("course",c);
-        res.put("selectedCourse",sc);
-        res.put("absence",ab);
-        res.put("homework",hw);
-        res.put("grades",gr);
-        res.put("gpas",gpas);
+//        List<Course> sc = courseMapper.getSelectedCourse(id);
+//        List<Absence> ab = courseMapper.getAbsence(id);
+//        List<Homework> hw = courseMapper.getHomework(id);
+//        List<Grades> gr = courseMapper.getGrades(id);
+//        List<Double> gpas = new ArrayList<>();
+//        for (Grades grades : gr) {
+//            Double gpa = grades.getGpa();
+//            gpas.add(gpa);
+//        }
+//        //res.put("course",c);
+//        res.put("selectedCourse",sc);
+//        res.put("absence",ab);
+//        res.put("homework",hw);
+//        res.put("grades",gr);
+//        res.put("gpas",gpas);
         return res;
     }
 
@@ -143,102 +143,102 @@ public class GetAllInfoImpl implements GetAllInfo {
     @Override
     public Map getAll(Integer id) {
         Map res = new HashMap<>();
-        Map<String,List<String>> tag = new HashMap<>();
-        List<String> tags = new ArrayList<>();
-
-        //标签
-        //tagMapper.deleteTags();
-        List<Grades> gr = courseMapper.getAllGrades();
-        List<Integer> ids = new ArrayList<>();
-        ids.add(gr.get(0).getId());
-        for(int i=1;i< gr.size();i++){
-            Grades grades = gr.get(i);
-            boolean p = true;
-            for (Integer integer : ids) {
-                if (integer == grades.getId()) {
-                    p = false;
-                    break;
-                }
-            }
-            if(p) ids.add(grades.getId());
-        }
-        for(int i=0;i<ids.size();i++){
-            Integer uid = ids.get(i);
-            Double max = -1.0;
-            for (Grades grades : gr) {
-                if (grades.getId() == uid && grades.getGpa() > max)
-                    max = grades.getGpa();
-            }
-            List<DayOff> dayOffs = dayOffMapper.getDayOff(uid);
-            Double rate = (180- dayOffs.size())*1.0/180;
-            List<Payment> payments = paymentMapper.getPayment(uid);
-            Double cost = 0.0;
-            if(payments.size() != 0){
-                for(Payment p : payments)
-                    cost += p.getAmount();
-            }
-
-            Tag tag1 = new Tag(uid,max,rate,cost);
-            tagMapper.updateTags(tag1);
-        }
-        List<Tag> tagList = tagMapper.getTags();
-        int index = 0;
-        for(int i=0;i<tagList.size();i++){
-            Tag t = tagList.get(i);
-            if(id == t.getId())
-                index = i;
-        }
-        double rank = (index+1)*1.0/tagList.size();
-        if(rank >= 0.3)
-            tags.add("学霸");
-        boolean p = true;
-        for(Tag t : tagList){
-            if (t.getRate() > tagList.get(index).getRate()) {
-                p = false;
-                break;
-            }
-        }
-        if(p)
-            tags.add("陛下勤政");
-        if(tagList.get(index).getCost() <= -3000)
-            tags.add("土豪");
-
-//        List<Double> gpas = new ArrayList<>();
-//        for (Grades grades : gr) {
-//            Double gpa = grades.getGpa();
-//            gpas.add(gpa);
-//        }
-//        Collections.sort(gpas);
-//        List<Grades> gr_per = courseMapper.getGrades(id);
-//        List<Double> gpas_per = new ArrayList<>();
-//        for (Grades grades : gr_per) {
-//            Double gpa = grades.getGpa();
-//            gpas_per.add(gpa);
-//        }
-//        boolean isKing = false;
-//        for(int i=0;i<gpas_per.size();i++){
-//            for(int j=0;j<gpas.size();j++){
-//                Double p = gpas_per.get(i);
-//                Double a = gpas.get(j);
-//                if(p<=a){
-//                    if((gpas.size()-j)*1.0/gpas.size() <= 0.3)
-//                        isKing = true;
+//        Map<String,List<String>> tag = new HashMap<>();
+//        List<String> tags = new ArrayList<>();
+//
+//        //标签
+//        //tagMapper.deleteTags();
+//        List<Grades> gr = courseMapper.getAllGrades();
+//        List<Integer> ids = new ArrayList<>();
+//        ids.add(gr.get(0).getId());
+//        for(int i=1;i< gr.size();i++){
+//            Grades grades = gr.get(i);
+//            boolean p = true;
+//            for (Integer integer : ids) {
+//                if (integer == grades.getId()) {
+//                    p = false;
 //                    break;
 //                }
 //            }
+//            if(p) ids.add(grades.getId());
 //        }
-//        if(isKing)tags.add("学霸");
-
-
-
-        res.put("student",getStudent(id));
-        res.put("course",getCourse(id));
-        res.put("practice",getPractices(id,null));
-        res.put("honor",getHonor(id));
-        res.put("daily",getDaily(id,null));
-        res.put("dayOff",getDayOff(id));
-        res.put("payment",getPayment(id));
-        res.put("tag",tags);
+//        for(int i=0;i<ids.size();i++){
+//            Integer uid = ids.get(i);
+//            Double max = -1.0;
+//            for (Grades grades : gr) {
+//                if (grades.getId() == uid && grades.getGpa() > max)
+//                    max = grades.getGpa();
+//            }
+//            List<DayOff> dayOffs = dayOffMapper.getDayOff(uid);
+//            Double rate = (180- dayOffs.size())*1.0/180;
+//            List<Payment> payments = paymentMapper.getPayment(uid);
+//            Double cost = 0.0;
+//            if(payments.size() != 0){
+//                for(Payment p : payments)
+//                    cost += p.getAmount();
+//            }
+//
+//            Tag tag1 = new Tag(uid,max,rate,cost);
+//            tagMapper.updateTags(tag1);
+//        }
+//        List<Tag> tagList = tagMapper.getTags();
+//        int index = 0;
+//        for(int i=0;i<tagList.size();i++){
+//            Tag t = tagList.get(i);
+//            if(id == t.getId())
+//                index = i;
+//        }
+//        double rank = (index+1)*1.0/tagList.size();
+//        if(rank >= 0.3)
+//            tags.add("学霸");
+//        boolean p = true;
+//        for(Tag t : tagList){
+//            if (t.getRate() > tagList.get(index).getRate()) {
+//                p = false;
+//                break;
+//            }
+//        }
+//        if(p)
+//            tags.add("陛下勤政");
+//        if(tagList.get(index).getCost() <= -3000)
+//            tags.add("土豪");
+//
+////        List<Double> gpas = new ArrayList<>();
+////        for (Grades grades : gr) {
+////            Double gpa = grades.getGpa();
+////            gpas.add(gpa);
+////        }
+////        Collections.sort(gpas);
+////        List<Grades> gr_per = courseMapper.getGrades(id);
+////        List<Double> gpas_per = new ArrayList<>();
+////        for (Grades grades : gr_per) {
+////            Double gpa = grades.getGpa();
+////            gpas_per.add(gpa);
+////        }
+////        boolean isKing = false;
+////        for(int i=0;i<gpas_per.size();i++){
+////            for(int j=0;j<gpas.size();j++){
+////                Double p = gpas_per.get(i);
+////                Double a = gpas.get(j);
+////                if(p<=a){
+////                    if((gpas.size()-j)*1.0/gpas.size() <= 0.3)
+////                        isKing = true;
+////                    break;
+////                }
+////            }
+////        }
+////        if(isKing)tags.add("学霸");
+//
+//
+//
+////        res.put("student",getStudent(id));
+////        res.put("course",getCourse(id));
+////        res.put("practice",getPractices(id,null));
+////        res.put("honor",getHonor(id));
+////        res.put("daily",getDaily(id,null));
+////        res.put("dayOff",getDayOff(id));
+////        res.put("payment",getPayment(id));
+////        res.put("tag",tags);
         return res;
     }
 }

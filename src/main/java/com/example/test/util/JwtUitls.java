@@ -70,8 +70,10 @@ public class JwtUitls {
         Integer id = Integer.parseInt(claims.getId());
         //这是防止空指针的操作
         String username = JwtUitls.userService.getName(id);
+        String role = JwtUitls.userService.getRole(id);
         if(username != null){
-            return 1;
+            if("admin".equals(role)) return 11;
+            else return 1;
         }else{
             return 0;
         }

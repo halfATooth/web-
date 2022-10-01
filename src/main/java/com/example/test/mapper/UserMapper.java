@@ -13,4 +13,5 @@ public interface UserMapper extends BaseMapper<User> {
     int setEmail(String email, String username);
     int changePwd(User user);
     String getEmail(String username);
+    String getRole(Integer id);
 }

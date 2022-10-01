@@ -53,8 +53,8 @@ public class GetAllController {
 
     @ResponseBody
     @PostMapping("/getStudent")
-    public Map getStudent(Integer id){
-        return getAllInfo.getStudent(id);
+    public Map getStudent(String num){
+        return getAllInfo.getStudent(num);
     }
 
     @ResponseBody

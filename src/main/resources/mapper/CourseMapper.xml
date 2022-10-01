@@ -16,13 +16,22 @@
         INSERT INTO select_course_info (id,select_course_id)
         VALUES (#{id},#{selectCourseId})
     </insert>
+    <insert id="addTeachersCourse" parameterType="com.example.test.bean.TeachersCourse">
+        INSERT INTO teachers_course_info (teacher,select_course_id)
+        VALUES (#{teacher},#{selectCourseId})
+    </insert>
     <select id="getSelectedCourse" resultType="com.example.test.bean.Course">
         SELECT course_info.*
         FROM course_info INNER JOIN select_course_info
         ON select_course_info.id = #{id}
         AND course_info.id = select_course_info.select_course_id
     </select>
-
+    <select id="getTeachersCourse" resultType="com.example.test.bean.Course">
+        SELECT course_info.*
+        FROM course_info INNER JOIN teachers_course_info
+        ON teachers_course_info.id = #{id}
+        AND course_info.id = teachers_course_info.select_course_id
+    </select>
 
     <insert id="addAbsence" parameterType="com.example.test.bean.Absence">
         INSERT INTO absence (id,skip_course_name,skip_course_date,skip_course_teacher)
@@ -46,8 +55,8 @@
 
 
     <insert id="addGrades" parameterType="com.example.test.bean.Grades">
-        INSERT INTO grades (id,higher,linear_p,discrete_p,physics_p,java_points,cpp_p)
-        VALUES (#{id},#{higher},#{linear},#{discrete},#{physics},#{javaPoints},#{cpp})
+        INSERT INTO grades (num,course_id,points)
+        VALUES (#{num},#{courseId},#{points})
     </insert>
     <select id="getGrades" resultType="com.example.test.bean.Grades">
         SELECT *

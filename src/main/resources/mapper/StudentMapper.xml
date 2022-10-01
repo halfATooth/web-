@@ -9,7 +9,7 @@
         WHERE
             stu.id = #{id}
     </select>
-    <select id="getStudent" resultType="com.example.test.bean.Student">
+    <select id="getStudent" parameterType="java.lang.String" resultType="com.example.test.bean.Student">
         SELECT
             *
         FROM
@@ -49,29 +49,17 @@
     </select>
     <update id="updateStudent" parameterType="com.example.test.bean.Student">
         UPDATE stu_base_info
-        SET student_name = #{studentName},student_num = #{studentNum},sex = #{sex},age = #{age},
-            birthday = #{birthday},telephone = #{telephone},
-            p_name = #{pName},p_position = #{pPosition},p_enter_date = #{pEnterDate},p_graduate_date = #{pGraduateDate},
-            j_name = #{jName},j_position = #{jPosition},j_enter_date = #{jEnterDate},j_graduate_date = #{jGraduateDate},
-            s_name = #{sName},s_position = #{sPosition},s_enter_date = #{sEnterDate},s_graduate_date = #{sGraduateDate},
-            family_num = #{familyNum},family_position = #{familyPosition},
-            f_name = #{fName},f_phone = #{fPhone},f_workplace = #{fWorkplace},
-            m_name = #{mName},m_phone = #{mPhone},m_workplace = #{mWorkplace}
-        WHERE id = #{id}
+        SET student_name = #{studentName},sex = #{sex},age = #{age},
+            birthday = #{birthday},telephone = #{telephone}
+        WHERE student_num = #{studentNum}
     </update>
-    <insert id="addStudent" keyProperty="id" useGeneratedKeys="true" parameterType="com.example.test.bean.Student">
-        INSERT INTO stu_base_info(student_name,student_num,sex,age,birthday,telephone,
-                                  p_name,p_position,p_enter_date,p_graduate_date,
-                                  j_name,j_position,j_enter_date,j_graduate_date,
-                                  s_name,s_position,s_enter_date,s_graduate_date,
-                                  family_num,family_position,f_name,f_phone,f_workplace,
-                                  m_name,m_phone,m_workplace)
-        VALUES (#{studentName},#{studentNum},#{sex},#{age},#{birthday},#{telephone},
-                #{pName},#{pPosition},#{pEnterDate},#{pGraduateDate},
-                #{jName},#{jPosition},#{jEnterDate},#{jGraduateDate},
-                #{sName},#{sPosition},#{sEnterDate},#{sGraduateDate},
-                #{familyNum},#{familyPosition},#{fName},#{fPhone},#{fWorkplace},
-                #{mName},#{mPhone},#{mWorkplace})
+    <insert id="addStudent" parameterType="com.example.test.bean.Student">
+        INSERT INTO stu_base_info(student_name,student_num,sex,age,birthday,telephone)
+        VALUES (#{studentName},#{studentNum},#{sex},#{age},#{birthday},#{telephone})
+    </insert>
+    <insert id="initStudent" parameterType="java.lang.String">
+        INSERT INTO stu_base_info(student_num)
+        VALUES (#{studentNum})
     </insert>
     <delete id="deleteStuBase" parameterType="com.example.test.bean.Student">
         DELETE FROM stu_base_info

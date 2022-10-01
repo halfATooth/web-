@@ -4,10 +4,13 @@ import com.example.test.bean.*;
 import com.example.test.mapper.CourseMapper;
 import com.example.test.mapper.StudentMapper;
 import com.example.test.service.CourseService;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 @Service
@@ -25,9 +28,10 @@ public class CourseServiceImpl implements CourseService {
                                          String classPlace, Double point) {
         Map<String, String> res = new HashMap<>();
         try {
-            Course course = new Course(getIdByN(id), courseName,  bookName, resName, pptUrl, teacher,
+            Course course = new Course(id, courseName,  bookName, resName, pptUrl, teacher,
                     classTime,classPlace, point);
             courseMapper.addCourse(course);
+            courseMapper.addTeachersCourse(new TeachersCourse(teacher,id));
             res.put("code","0");
             res.put("msg","添加课程成功");
         }catch (Exception e){
@@ -92,19 +96,33 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Map<String, String> addGrades(Integer id, Double higher, Double linear, Double discrete, Double physics,
-                                         Double javaPoints, Double cpp) {
+    public Map<String, String> addGrades(String data) {
         Map<String, String> res = new HashMap<>();
-
+        JSONArray jsonArray = JSONArray.fromObject(data);
         try {
-            Grades grades = new Grades( getIdByN(id), higher, linear, discrete,  physics, javaPoints, cpp );
-            courseMapper.addGrades(grades);
+            for(int i = 0;i< jsonArray.size();i++){
+                Grades grades = new Grades();
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                Iterator iterator = jsonObject.entrySet().iterator();
+                while (iterator.hasNext()){
+                    Map.Entry entry = (Map.Entry)iterator.next();
+                    String key = entry.getKey().toString();
+                    String value = entry.getValue().toString();
+                    if(key.equals("num")){
+                        grades.setNum(value);
+                    }else {
+                        grades.setCourseId(key);
+                        grades.setPoints(Double.parseDouble(value));
+                    }
+                }
+                courseMapper.addGrades(grades);
+            }
             res.put("code","0");
             res.put("msg","添加成绩成功");
         }catch (Exception e){
             res.put("code","1");
             res.put("msg","添加成绩失败");
-            res.put("error", String.valueOf(e));
+            res.put("err", String.valueOf(e));
         }
         return res;
     }

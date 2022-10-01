@@ -1,7 +1,9 @@
 package com.example.test.service.Impl;
 
+import com.example.test.bean.Student;
 import com.example.test.bean.User;
 import com.example.test.bean.VerificationCode;
+import com.example.test.mapper.StudentMapper;
 import com.example.test.mapper.UserMapper;
 import com.example.test.mapper.VerificationCodeMapper;
 import com.example.test.service.EmailService;
@@ -23,9 +25,16 @@ public class UserServiceImpl implements UserService {
     private EmailService emailService;
     @Autowired
     private VerificationCodeService codeService;
+    @Autowired
+    private StudentMapper studentMapper;
     @Override
     public String getName(Integer id) {
         return userMapper.getNameById(id);
+    }
+
+    @Override
+    public String getRole(Integer id) {
+        return userMapper.getRole(id);
     }
 
     @Override
@@ -50,9 +59,13 @@ public class UserServiceImpl implements UserService {
         user.setUsername(username);
         user.setPassword(SecurityUtils.encodePassword(password));
         user.setRole(role);
+//        Student student = new Student();
+//        student.setStudentNum(username);//这是学号
         Map<String,String> res = new HashMap<>();
         try {
             userMapper.addUser(user);
+//            student.setId(user.getId());
+            studentMapper.initStudent(username);
             res.put("code","0");
             res.put("msg","注册成功");
         }catch (Exception e){

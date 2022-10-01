@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface GetAllInfo {
-    Map getStudent(Integer id);
+    Map getStudent(String num);
     Map getStudents(String numName);
     Map getCourse(Integer id);//这是获取学生的学习信息
     List<Course> getSetCourse();//这是获取课程的信息

@@ -15,15 +15,12 @@ public class PracticeServiceImpl implements PracticeService {
     PracticeMapper practiceMapper;
     @Autowired
     StudentMapper studentMapper;
-    private Integer getIdByN(Integer num){
-        return studentMapper.getStuIdByNum(num);
-    }
     @Override
-    public Map<String, String> addPractice(Integer id, String description, String practiceTime,
+    public Map<String, String> addPractice(String studentNum, String description, String practiceTime,
                                            Double hours, String practiceType) {
         Map<String, String> res = new HashMap<>();
         try {
-            Practice practice = new Practice( getIdByN(id), description, practiceTime, hours, practiceType);
+            Practice practice = new Practice(studentNum, description, practiceTime, hours, practiceType);
             practiceMapper.addPractice(practice);
             res.put("code","0");
             res.put("msg","添加实践信息成功");

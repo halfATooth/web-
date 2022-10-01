@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.test.mapper.HeadImgMapper">
+
+    <insert id="addImg" parameterType="com.example.test.bean.HeadImg">
+        INSERT INTO head_img (stu_num,file_name)
+        VALUES (#{num},#{fileName})
+    </insert>
+    <select id="getFileName" resultType="java.lang.String">
+        SELECT h.file_name
+        FROM head_img h
+        where h.stu_num = #{num}
+    </select>
+
+    <update id="updateImg" parameterType="com.example.test.bean.HeadImg">
+        UPDATE head_img
+        SET file_name = #{fileName}
+        WHERE stu_num = #{num}
+    </update>
+
+</mapper>
