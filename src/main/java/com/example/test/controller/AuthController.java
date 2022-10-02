@@ -32,14 +32,14 @@ public class AuthController {
 
     @PostMapping("/sendCode")
     @ResponseBody
-    public Map<String,String> sendCode(String username){
-        return userService.changePwdSend(username);
+    public Map<String,String> sendCode(String num){
+        return userService.changePwdSend(num);
     }
 
     @PostMapping("/setPwd")
     @ResponseBody
-    public Map<String,String> setPwd(String username, String newPwd, int code){
-        return userService.changePwdSet(username,newPwd,code);
+    public Map<String,String> setPwd(String num, String newPwd, int code){
+        return userService.changePwdSet(num,newPwd,code);
     }
 
 }
