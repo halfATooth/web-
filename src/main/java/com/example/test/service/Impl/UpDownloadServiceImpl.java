@@ -26,7 +26,7 @@ public class UpDownloadServiceImpl implements UpDownloadImgService {
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
         //重新生成文件名
         fileName = studentNum + suffixName;
-        //指定本地文件夹存储图片，写到需要保存的目录下
+        //指定本地文件夹存储图片，写到需要保存的目录下/home/lhs/project/headImg/
         String s = "D:\\IDEA-workspace\\web\\src\\main\\res\\headImg/";
 //        String filePath = s.substring(6);
 
