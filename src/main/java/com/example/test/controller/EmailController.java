@@ -27,13 +27,13 @@ public class EmailController {
     private UserService userService;
     @ResponseBody
     @PostMapping("/send")
-    public Map<String,String> sendEmail(String email, String username){
-        return emailService.sendSimpleEmail(email,username);
+    public Map<String,String> sendEmail(String email, String num){
+        return emailService.sendSimpleEmail(email,num);
     }
 
     @ResponseBody
     @PostMapping("/check")
-    public Map<String,String> check(String username, Integer code, String email){
-        return emailService.check(username,code,email);
+    public Map<String,String> check(String num, Integer code, String email){
+        return emailService.check(num,code,email);
     }
 }

@@ -58,10 +58,14 @@
         INSERT INTO grades (num,course_id,points)
         VALUES (#{num},#{courseId},#{points})
     </insert>
+    <insert id="addEvaluation" parameterType="com.example.test.bean.Evaluate">
+        INSERT INTO evaluate (num,area,points)
+        VALUES (#{num},#{area},#{points})
+    </insert>
     <select id="getGrades" resultType="com.example.test.bean.Grades">
         SELECT *
-        FROM grades gr
-        WHERE gr.id = #{id}
+        FROM grades
+        WHERE num = #{num}
     </select>
     <select id="getAllGrades" resultType="com.example.test.bean.Grades">
         SELECT *

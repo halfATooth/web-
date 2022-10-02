@@ -59,4 +59,10 @@ public class CourseController {
     public Map<String, String> grade(String data){
         return courseService.addGrades(data);
     }
+
+    @ResponseBody
+    @PostMapping("/evaluate")
+    public Map<String, String> evaluate(String num, String area, Double points){
+        return courseService.addEvaluate(num, area, points);
+    }
 }

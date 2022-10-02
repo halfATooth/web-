@@ -41,6 +41,14 @@
         WHERE
             stu.id = #{id}
     </select>
+    <select id="getMainPage" resultType="com.example.test.bean.MainPage" parameterType="java.lang.String">
+        SELECT
+            *
+        FROM
+            main_page
+        WHERE
+            num = #{num}
+    </select>
     <select id="getStudentAll" resultType="com.example.test.bean.Student">
         SELECT
             *
@@ -53,6 +61,12 @@
             birthday = #{birthday},telephone = #{telephone}
         WHERE student_num = #{studentNum}
     </update>
+    <update id="updateMainPage" parameterType="com.example.test.bean.MainPage">
+        UPDATE main_page
+        SET resume = #{resume},blog = #{blog},researchArea = #{researchArea},
+            courses = #{courses},article = #{article}
+        WHERE num = #{num}
+    </update>
     <insert id="addStudent" parameterType="com.example.test.bean.Student">
         INSERT INTO stu_base_info(student_name,student_num,sex,age,birthday,telephone)
         VALUES (#{studentName},#{studentNum},#{sex},#{age},#{birthday},#{telephone})
@@ -60,6 +74,10 @@
     <insert id="initStudent" parameterType="java.lang.String">
         INSERT INTO stu_base_info(student_num)
         VALUES (#{studentNum})
+    </insert>
+    <insert id="initMainPage" parameterType="java.lang.String">
+        INSERT INTO main_page(num)
+        VALUES (#{num})
     </insert>
     <delete id="deleteStuBase" parameterType="com.example.test.bean.Student">
         DELETE FROM stu_base_info

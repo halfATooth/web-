@@ -1,6 +1,7 @@
 package com.example.test.service;
 
 import com.example.test.bean.Course;
+import com.example.test.bean.Evaluate;
 
 import java.util.Map;
 
@@ -16,4 +17,5 @@ public interface CourseService {
                                    String assessment);
 
     Map<String,String> addGrades(String data);
+    Map<String,String> addEvaluate(String num, String area, Double points);
 }

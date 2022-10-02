@@ -54,9 +54,9 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public Map<String,String> addUser(String username, String password, String role) {
+    public Map<String,String> addUser(String num, String password, String role) {
         User user = new User();
-        user.setUsername(username);
+        user.setUsername(num);
         user.setPassword(SecurityUtils.encodePassword(password));
         user.setRole(role);
 //        Student student = new Student();
@@ -65,7 +65,8 @@ public class UserServiceImpl implements UserService {
         try {
             userMapper.addUser(user);
 //            student.setId(user.getId());
-            studentMapper.initStudent(username);
+            studentMapper.initStudent(num);
+            studentMapper.initMainPage(num);
             res.put("code","0");
             res.put("msg","注册成功");
         }catch (Exception e){

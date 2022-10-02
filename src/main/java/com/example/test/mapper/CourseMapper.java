@@ -14,12 +14,13 @@ public interface CourseMapper extends BaseMapper<Course> {
     void addAbsence(Absence absence);
     void addHomework(Homework homework);
     void addGrades(Grades grades);
+    void addEvaluation(Evaluate evaluate);
 
     List<Course> getCourses();
     List<Course> getSelectedCourse(Integer id);
     List<Course> getTeachersCourse(Integer id);
     List<Absence> getAbsence(Integer id);
     List<Homework> getHomework(Integer id);
-    List<Grades> getGrades(Integer id);
+    List<Grades> getGrades(String num);
     List<Grades> getAllGrades();
 }

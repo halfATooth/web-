@@ -126,4 +126,20 @@ public class CourseServiceImpl implements CourseService {
         }
         return res;
     }
+
+    @Override
+    public Map<String, String> addEvaluate(String num, String area, Double points) {
+        Map<String, String> res = new HashMap<>();
+        Evaluate evaluate = new Evaluate(num, area, points);
+        try {
+            courseMapper.addEvaluation(evaluate);
+            res.put("code","0");
+            res.put("msg","评价成功");
+        }catch (Exception e){
+            res.put("code","0");
+            res.put("msg","评价失败");
+            res.put("err",String.valueOf(e));
+        }
+        return res;
+    }
 }

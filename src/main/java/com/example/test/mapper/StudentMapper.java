@@ -1,6 +1,7 @@
 package com.example.test.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.example.test.bean.MainPage;
 import com.example.test.bean.Student;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -17,4 +18,7 @@ public interface StudentMapper extends BaseMapper<Student> {
     List<Student> getStudentAll();
     Integer getStuIdByNum(Integer stuNum);
     Integer getNumById(Integer id);
+    int initMainPage(String num);
+    int updateMainPage(MainPage mainPage);
+    MainPage getMainPage(String num);
 }
