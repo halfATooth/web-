@@ -4,7 +4,6 @@ import lombok.Data;
 /**缺勤信息*/
 @Data
 public class Absence {
-
     private int id;
     private String skipCourseName;
     private String skipCourseDate;
