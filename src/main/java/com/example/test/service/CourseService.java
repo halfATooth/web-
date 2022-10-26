@@ -10,12 +10,13 @@ public interface CourseService {
         String teacher, String classTime, String classPlace, Double point);
 
     Map<String,String> addSelectedCourse(Integer id, String selectCourseId);
-
+    Map<String,String> deleteSelectedCourse(Integer id, String selectCourseId);
     Map<String,String> addAbsence(Integer id, String skipCourseName, String skipCourseDate, String skipCourseTeacher);
 
     Map<String,String> addHomework(Integer id, String homeworkName, String homeworkDate, String teacher,
                                    String assessment);
 
     Map<String,String> addGrades(String data);
+    Map getGrades(Integer num);
     Map<String,String> addEvaluate(String num, String area, Double points);
 }

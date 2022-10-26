@@ -10,12 +10,20 @@
         SELECT *
         FROM course_info ci
     </select>
+    <select id="getCourse" resultType="com.example.test.bean.Course">
+        SELECT *
+        FROM course_info ci WHERE ci.id=#{course_id}
+    </select>
 
 
     <insert id="addSelectedCourse" parameterType="com.example.test.bean.SelectedCourse">
         INSERT INTO select_course_info (id,select_course_id)
         VALUES (#{id},#{selectCourseId})
     </insert>
+    <delete id="deleteSelectedCourse" parameterType="com.example.test.bean.SelectedCourse">
+        DELETE FROM select_course_info
+        WHERE id=#{id} AND select_course_id=#{selectCourseId}
+    </delete>
     <insert id="addTeachersCourse" parameterType="com.example.test.bean.TeachersCourse">
         INSERT INTO teachers_course_info (teacher,select_course_id)
         VALUES (#{teacher},#{selectCourseId})

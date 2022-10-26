@@ -147,7 +147,7 @@ public class StudentServiceImpl implements StudentService {
         }
         if("student".equals(role) || "admin".equals(role)){
             res.put("blog",mainPage.getBlog());
-            List<Grades> gs = courseMapper.getGrades(num);
+            List<Grades> gs = courseMapper.getGrades(Integer.parseInt(num));
             Double points = 0.0;
             for(Grades g :gs){
                 points += g.getPoints();

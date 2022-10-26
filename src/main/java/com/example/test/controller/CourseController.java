@@ -29,8 +29,14 @@ public class CourseController {
 
     @ResponseBody
     @PostMapping("/addSelectCourse")
-    public Map<String,String> selectedCourse(Integer id, String selectCourseId){
-        return courseService.addSelectedCourse(id,selectCourseId);
+    public Map<String,String> selectedCourse(Integer num, String selectCourseId){
+        return courseService.addSelectedCourse(num,selectCourseId);
+    }
+
+    @ResponseBody
+    @PostMapping("/deleteSelectCourse")
+    public Map<String,String> deleteSelectedCourse(Integer num, String selectCourseId){
+        return courseService.deleteSelectedCourse(num,selectCourseId);
     }
 
     @ResponseBody
@@ -58,6 +64,12 @@ public class CourseController {
     @PostMapping("/grades")
     public Map<String, String> grade(String data){
         return courseService.addGrades(data);
+    }
+
+    @ResponseBody
+    @PostMapping("/getGrades")
+    public Map getGrade(Integer num){
+        return courseService.getGrades(num);
     }
 
     @ResponseBody

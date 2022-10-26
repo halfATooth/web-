@@ -9,19 +9,17 @@ import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 @Service
 public class CourseServiceImpl implements CourseService {
     @Autowired
     CourseMapper courseMapper;
     @Autowired
     StudentMapper studentMapper;
-    private Integer getIdByN(Integer num){
-        return studentMapper.getStuIdByNum(num);
-    }
+//    private Integer getIdByN(Integer num){
+//        return studentMapper.getStuIdByNum(num);
+//    }
     @Override
     public Map<String, String> addCourse(Integer id, String courseName, String bookName,String resName,
                                          String pptUrl,String teacher, String classTime,
@@ -43,12 +41,12 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Map<String, String> addSelectedCourse(Integer id, String selectCourseId) {
+    public Map<String, String> addSelectedCourse(Integer num, String selectCourseId) {
         Map<String, String> res = new HashMap<>();
         String[] courses = selectCourseId.split(",");
         try {
             for(int i = 0; i < courses.length; i++){
-                SelectedCourse selectedCourse = new SelectedCourse(getIdByN(id),courses[i]);
+                SelectedCourse selectedCourse = new SelectedCourse(num,courses[i]);
                 courseMapper.addSelectedCourse(selectedCourse);
             }
             res.put("code","0");
@@ -62,11 +60,38 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Map<String, String> addAbsence(Integer id, String skipCourseName, String skipCourseDate,
+    public Map<String, String> deleteSelectedCourse(Integer num, String selectCourseId) {
+        Map<String, String> res = new HashMap<>();
+        String[] courses = selectCourseId.split(",");
+        try {
+            int n = 0;
+            for(int i = 0; i < courses.length; i++){
+                SelectedCourse selectedCourse = new SelectedCourse(num,courses[i]);
+                int k = courseMapper.deleteSelectedCourse(selectedCourse);
+                n += k;
+            }
+            if(n == 0){
+                res.put("code","2");
+                res.put("msg","无此人选此课记录");
+            }else {
+                res.put("code","0");
+                res.put("msg","退课成功");
+            }
+
+        }catch (Exception e){
+            res.put("code","1");
+            res.put("msg","退课失败");
+            res.put("error", String.valueOf(e));
+        }
+        return res;
+    }
+
+    @Override
+    public Map<String, String> addAbsence(Integer num, String skipCourseName, String skipCourseDate,
                                           String skipCourseTeacher) {
         Map<String, String> res = new HashMap<>();
         try {
-            Absence absence = new Absence(getIdByN(id), skipCourseName, skipCourseDate, skipCourseTeacher);
+            Absence absence = new Absence(num, skipCourseName, skipCourseDate, skipCourseTeacher);
             courseMapper.addAbsence(absence);
             res.put("code","0");
             res.put("msg","添加考勤信息成功");
@@ -79,11 +104,11 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Map<String, String> addHomework(Integer id, String homeworkName, String homeworkDate,
+    public Map<String, String> addHomework(Integer num, String homeworkName, String homeworkDate,
                                            String teacher, String assessment) {
         Map<String, String> res = new HashMap<>();
         try {
-            Homework homework = new Homework( getIdByN(id), homeworkName, homeworkDate, teacher, assessment );
+            Homework homework = new Homework( num, homeworkName, homeworkDate, teacher, assessment );
             courseMapper.addHomework(homework);
             res.put("code","0");
             res.put("msg","添加作业成功");
@@ -124,6 +149,40 @@ public class CourseServiceImpl implements CourseService {
             res.put("msg","添加成绩失败");
             res.put("err", String.valueOf(e));
         }
+        return res;
+    }
+
+    @Override
+    public Map getGrades(Integer num) {
+        Map res = new HashMap();
+        List data = new ArrayList<>();
+        List<Grades> gradesList = courseMapper.getGrades(num);
+        try{
+            for(Grades grades : gradesList){
+                Map data_element = new HashMap();
+                data_element.put("grades",grades);
+                String course_id_s = grades.getCourseId();
+                Course course = courseMapper.getCourse(Integer.parseInt(course_id_s));
+                if(course == null){
+                    res.put("code","2");
+                    res.put("msg","此人学习的课程不存在");
+                    break;
+                }else{
+                    data_element.put("course",course);
+                    data.add(data_element);
+                }
+
+                res.put("code","0");
+                res.put("msg","获取成绩成功");
+                res.put("data",data);
+            }
+        }catch (Exception e){
+            res.put("code","1");
+            res.put("msg","获取成绩失败");
+            res.put("err",String.valueOf(e));
+        }
+
+
         return res;
     }
 

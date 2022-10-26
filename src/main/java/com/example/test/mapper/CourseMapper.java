@@ -10,6 +10,7 @@ import java.util.List;
 public interface CourseMapper extends BaseMapper<Course> {
     void addCourse(Course course);
     void addSelectedCourse(SelectedCourse selectedCourse);
+    int deleteSelectedCourse(SelectedCourse selectedCourse);
     void addTeachersCourse(TeachersCourse teachersCourse);
     void addAbsence(Absence absence);
     void addHomework(Homework homework);
@@ -17,10 +18,11 @@ public interface CourseMapper extends BaseMapper<Course> {
     void addEvaluation(Evaluate evaluate);
 
     List<Course> getCourses();
+    Course getCourse(Integer course_id);
     List<Course> getSelectedCourse(Integer id);
     List<Course> getTeachersCourse(Integer id);
     List<Absence> getAbsence(Integer id);
     List<Homework> getHomework(Integer id);
-    List<Grades> getGrades(String num);
+    List<Grades> getGrades(Integer num);
     List<Grades> getAllGrades();
 }
