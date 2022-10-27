@@ -10,4 +10,6 @@ public interface UserService {
     Map<String,String> handleLogin(String username, String password);
     Map<String,String> changePwdSend(String username);
     Map<String,String> changePwdSet(String username, String password, int code);
+    Map<String,String> like(String num);
+    Map<String,String> addFollow(String num, String follow);
 }

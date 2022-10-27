@@ -58,4 +58,25 @@
         SET password = #{password}
         WHERE username = #{username}
     </update>
+    <insert id="initLike" parameterType="java.lang.String">
+        INSERT INTO likes(num)
+        VALUES (#{num})
+    </insert>
+    <update id="addLike" parameterType="com.example.test.bean.Like">
+        UPDATE likes
+        SET likes=#{likes}
+        WHERE num=#{num}
+    </update>
+    <select id="getLikes" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT
+            likes
+        FROM
+            likes
+        WHERE
+            num = #{num}
+    </select>
+    <insert id="addFollow" parameterType="com.example.test.bean.Follow">
+        INSERT INTO follow(num,followed)
+        VALUES (#{num},#{followed})
+    </insert>
 </mapper>

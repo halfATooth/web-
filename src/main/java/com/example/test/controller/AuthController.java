@@ -42,4 +42,16 @@ public class AuthController {
         return userService.changePwdSet(num,newPwd,code);
     }
 
+    @PostMapping("/like")
+    @ResponseBody
+    public Map<String,String> like(String num){
+        return userService.like(num);
+    }
+
+    @PostMapping("/follow")
+    @ResponseBody
+    public Map<String,String> follow(String num, String followed){
+        return userService.addFollow(num,followed);
+    }
+
 }

@@ -89,11 +89,11 @@ public class GetAllInfoImpl implements GetAllInfo {
     public Map getPractices(Integer id, String type) {
         Map res = new HashMap<>();
         if(type == null){
-            List<Practice> practices = practiceMapper.getAllKindsPractice(id);
+            List<Practice> practices = practiceMapper.getAllKindsPractice(id+"");
             res.put("practice",practices);
         }else {
             try {
-                List<Practice> practices = practiceMapper.getOneTypePractice(id,type);
+                List<Practice> practices = practiceMapper.getOneTypePractice(id+"",type);
                 res.put("practice",practices);
             }catch (Exception e){
                 res.put("error",String.valueOf(e));

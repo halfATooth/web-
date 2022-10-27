@@ -19,4 +19,5 @@ public interface CourseService {
     Map<String,String> addGrades(String data);
     Map getGrades(Integer num);
     Map<String,String> addEvaluate(String num, String area, Double points);
+    Map getCourseTable(Integer num);
 }

@@ -77,4 +77,10 @@ public class CourseController {
     public Map<String, String> evaluate(String num, String area, Double points){
         return courseService.addEvaluate(num, area, points);
     }
+
+    @ResponseBody
+    @PostMapping("/getCourseTable")
+    public Map getCourseTable(Integer num){
+        return courseService.getCourseTable(num);
+    }
 }

@@ -201,4 +201,51 @@ public class CourseServiceImpl implements CourseService {
         }
         return res;
     }
+
+    @Override
+    public Map getCourseTable(Integer num) {
+        Map res = new HashMap();
+
+        List<Course> courseList = courseMapper.getSelectedCourse(num);
+        //初始化
+        List<List<Map<String, String>>> data = new ArrayList<>();
+        for(int i=0;i<7;i++){
+            List<Map<String, String>> day_table = new ArrayList<>();
+            for(int j=0;j<5;j++){
+                day_table.add(new HashMap<>());
+            }
+            data.add(day_table);
+        }
+
+        try {
+            Map<String, String> data_element = new HashMap<>();
+            for(Course course : courseList){
+                data_element.put("class_name",course.getCourseName());
+                String jsonString = course.getClassTime();
+                JSONObject jsonObject = JSONObject.fromObject(jsonString);
+                String start_week = jsonObject.get("start_week") +"";
+                String end_week = jsonObject.get("end_week") +"";
+                data_element.put("start_week",start_week);
+                data_element.put("end_week",end_week);
+                List<Integer> day = (List<Integer>) jsonObject.get("date");
+                List<Integer> time = (List<Integer>) jsonObject.get("time");
+                for(int d : day){
+                    if(d<1) continue;
+                    List<Map<String, String>> day_table = data.get(d-1);
+                    for(int t : time){
+                        if(t<1) continue;
+                        day_table.set(t-1,data_element);
+                    }
+                }
+            }
+        }catch (Exception e){
+            res.put("code","1");
+            res.put("msg","获取课表失败");
+        }
+
+        res.put("data",data);
+        res.put("code","0");
+
+        return res;
+    }
 }

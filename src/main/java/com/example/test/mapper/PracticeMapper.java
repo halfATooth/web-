@@ -9,6 +9,9 @@ import java.util.List;
 @Mapper
 public interface PracticeMapper extends BaseMapper<Practice> {
     void addPractice(Practice practice);
-    List<Practice> getAllKindsPractice(Integer id);
-    List<Practice> getOneTypePractice(Integer id,String type);
+    void deletePractice(String eventId);
+    void updatePractice(Practice practice);
+    Practice getPractice(String eventId);
+    List<Practice> getAllKindsPractice(String num);
+    List<Practice> getOneTypePractice(String num,String type);
 }

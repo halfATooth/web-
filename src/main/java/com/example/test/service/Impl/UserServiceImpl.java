@@ -1,8 +1,6 @@
 package com.example.test.service.Impl;
 
-import com.example.test.bean.Student;
-import com.example.test.bean.User;
-import com.example.test.bean.VerificationCode;
+import com.example.test.bean.*;
 import com.example.test.mapper.StudentMapper;
 import com.example.test.mapper.UserMapper;
 import com.example.test.mapper.VerificationCodeMapper;
@@ -59,14 +57,12 @@ public class UserServiceImpl implements UserService {
         user.setUsername(num);
         user.setPassword(SecurityUtils.encodePassword(password));
         user.setRole(role);
-//        Student student = new Student();
-//        student.setStudentNum(username);//这是学号
         Map<String,String> res = new HashMap<>();
         try {
             userMapper.addUser(user);
-//            student.setId(user.getId());
             studentMapper.initStudent(num);
             studentMapper.initMainPage(num);
+            userMapper.initLike(num);
             res.put("code","0");
             res.put("msg","注册成功");
         }catch (Exception e){
@@ -128,6 +124,35 @@ public class UserServiceImpl implements UserService {
             res.put("code","2");
             res.put("msg","验证未通过");
             res.put("detail",ans.get("msg"));
+        }
+        return res;
+    }
+
+    @Override
+    public Map<String, String> like(String num) {
+        Map<String,String> res = new HashMap<>();
+        try{
+            int now = userMapper.getLikes(num);
+            userMapper.addLike(new Like(num,now+1));
+            res.put("code","0");
+            res.put("msg","点赞成功");
+        }catch (Exception e){
+            res.put("code","1");
+            res.put("msg","点赞失败");
+        }
+        return res;
+    }
+
+    @Override
+    public Map<String, String> addFollow(String num, String follow) {
+        Map<String,String> res = new HashMap<>();
+        try{
+            userMapper.addFollow(new Follow(num,follow));
+            res.put("code","0");
+            res.put("msg","关注成功");
+        }catch (Exception e){
+            res.put("code","1");
+            res.put("msg","关注失败");
         }
         return res;
     }
