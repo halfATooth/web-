@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.Map;
-
+/**
+ * 这玩意儿没用到
+ * */
 @CrossOrigin(origins = "*")
 @Controller
 public class GetAllController {

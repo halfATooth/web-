@@ -12,4 +12,6 @@ public interface UserService {
     Map<String,String> changePwdSet(String username, String password, int code);
     Map<String,String> like(String num);
     Map<String,String> addFollow(String num, String follow);
+    Map<String,String> addComments(String upNum,String tourNum,String content);
+    Map getMultiEvaluation(String num);
 }

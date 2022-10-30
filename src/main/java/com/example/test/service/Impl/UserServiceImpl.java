@@ -12,7 +12,9 @@ import com.example.test.util.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -155,5 +157,69 @@ public class UserServiceImpl implements UserService {
             res.put("msg","关注失败");
         }
         return res;
+    }
+
+    @Override
+    public Map<String, String> addComments(String upNum, String tourNum, String content) {
+        Map<String,String> res = new HashMap<>();
+        try{
+            userMapper.addComments(new Comments(upNum,tourNum,content));
+            res.put("code","0");
+            res.put("msg","评论成功");
+        }catch (Exception e){
+            res.put("code","1");
+            res.put("msg","评论失败");
+        }
+        return res;
+    }
+
+    @Override
+    public Map getMultiEvaluation(String num) {
+        Map res = new HashMap();
+        try{
+            Integer likes = userMapper.getLikes(num);
+            res.put("likes",likes);
+            res.put("followers",getFollowers(num));
+            res.put("idols",getIdols(num));
+            res.put("comments",getComments(num));
+            res.put("code","0");
+            res.put("msg","获取成功");
+        }catch (Exception e){
+            res.put("code","1");
+            res.put("msg","获取失败");
+        }
+        return res;
+    }
+    private List<Map<String,String>> getComments(String num){
+        List<Comments> rawComments = userMapper.getComments(num);
+        List<String> touristNums = new ArrayList<>();
+        for(Comments comments : rawComments){
+            touristNums.add(comments.getTouristNum());
+        }
+        List<Map<String,String>> commentsWithNames = getInfosByNums(touristNums);
+        for(int i=0;i< rawComments.size();i++){
+            String content = rawComments.get(i).getContent();
+            commentsWithNames.get(i).put("comments",content);
+        }
+        return commentsWithNames;
+    }
+    private List<Map<String,String>> getFollowers(String num){
+        List<String> followerNum = userMapper.getFollowers(num);
+        return getInfosByNums(followerNum);
+    }
+    private List<Map<String,String>> getIdols(String num){
+        List<String> idolNum = userMapper.getIdols(num);
+        return getInfosByNums(idolNum);
+    }
+    private List<Map<String,String>> getInfosByNums(List<String> nums){
+        List<Map<String,String>> people = new ArrayList<>();
+        for(String n : nums){
+            Map<String,String> person = new HashMap<>();
+            person.put("number",n);
+            String name = studentMapper.getNameByNum(n);
+            person.put("name",name);
+            people.add(person);
+        }
+        return people;
     }
 }

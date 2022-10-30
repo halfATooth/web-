@@ -21,4 +21,5 @@ public interface StudentMapper extends BaseMapper<Student> {
     int initMainPage(String num);
     int updateMainPage(MainPage mainPage);
     MainPage getMainPage(String num);
+    String getNameByNum(String num);
 }

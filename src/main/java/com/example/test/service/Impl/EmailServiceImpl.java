@@ -21,7 +21,6 @@ public class EmailServiceImpl implements EmailService {
     private VerificationCodeService verificationCodeService;
     @Autowired
     private UserService userService;
-//    @Override
     private Map<String, Integer> sendEmail(String username, String addressee) {
         Map<String, Integer> res = new HashMap<>();
         SimpleMailMessage message = new SimpleMailMessage();//消息构造器

@@ -1,15 +1,12 @@
 package com.example.test.controller;
 
 import com.example.test.service.CourseService;
-import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.Iterator;
 import java.util.Map;
 
 @CrossOrigin(origins = "*")
@@ -19,6 +16,7 @@ public class CourseController {
     @Autowired
     CourseService courseService;
 
+    /**这个classTime是前端传过来的json字符串*/
     @ResponseBody
     @PostMapping("/addCourse")
     public Map<String,String> course(Integer id, String courseName, String bookName,
@@ -53,13 +51,7 @@ public class CourseController {
         return courseService.addHomework( id, homeworkName, homeworkDate, teacher, assessment );
     }
 
-//    @ResponseBody
-//    @PostMapping("/addGrades")
-//    public Map<String,String> grades(Integer id, Double higher, Double linear, Double discrete, Double physics,
-//                                     Double java, Double cpp){
-//        return courseService.addGrades( id, higher, linear, discrete,  physics, java, cpp );
-//    }
-
+    /**这个data是前端传过来的json字符串*/
     @ResponseBody
     @PostMapping("/grades")
     public Map<String, String> grade(String data){

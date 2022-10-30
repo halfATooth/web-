@@ -25,6 +25,7 @@ public class UpDownloadImgController {
         return upDownloadImgService.upload(img, studentNum);
     }
 
+    /**使用的是流传输*/
     @ResponseBody
     @PostMapping("/download")
     void download(HttpServletResponse response, String num){

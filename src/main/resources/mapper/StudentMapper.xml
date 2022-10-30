@@ -9,6 +9,14 @@
         WHERE
             stu.id = #{id}
     </select>
+    <select id="getNameByNum" resultType="java.lang.String">
+        SELECT
+            stu.student_name
+        FROM
+            stu_base_info stu
+        WHERE
+            stu.student_num = #{num}
+    </select>
     <select id="getStudent" parameterType="java.lang.String" resultType="com.example.test.bean.Student">
         SELECT
             *

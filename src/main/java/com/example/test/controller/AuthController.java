@@ -14,20 +14,20 @@ public class AuthController {
 
     @ResponseBody
     @PostMapping("/login")
-    public Map<String,String> login(String username,String password){
-        return userService.handleLogin(username,password);
+    public Map<String,String> login(String num,String password){
+        return userService.handleLogin(num,password);
     }
 
     @PostMapping("/signup")
     @ResponseBody
-    public Map<String,String> signup(String username, String password, String role){
-        return userService.addUser(username,password,role);
+    public Map<String,String> signup(String num, String password, String role){
+        return userService.addUser(num,password,role);
     }
 
     @PostMapping("/setEmail")
     @ResponseBody
-    public Map<String,String> setEmail(String email, String username){
-        return userService.setEmail(email, username);
+    public Map<String,String> setEmail(String email, String num){
+        return userService.setEmail(email, num);
     }
 
     @PostMapping("/sendCode")
@@ -54,4 +54,15 @@ public class AuthController {
         return userService.addFollow(num,followed);
     }
 
+    @PostMapping("/comment")
+    @ResponseBody
+    public Map<String,String> comment(String up, String tourist, String comments){
+        return userService.addComments(up,tourist,comments);
+    }
+
+    @PostMapping("/getEvaluation")
+    @ResponseBody
+    public Map getEvaluation(String num){
+        return userService.getMultiEvaluation(num);
+    }
 }

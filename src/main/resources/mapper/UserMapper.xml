@@ -79,4 +79,29 @@
         INSERT INTO follow(num,followed)
         VALUES (#{num},#{followed})
     </insert>
+    <insert id="addComments" parameterType="com.example.test.bean.Comments">
+        INSERT INTO stu_comments(up_num,tourist_num,content)
+        VALUES (#{upNum},#{touristNum},#{content})
+    </insert>
+    <select id="getFollowers" parameterType="java.lang.String" resultType="java.lang.String">
+    SELECT num
+    FROM follow
+    WHERE followed = #{num}
+    </select>
+    <select id="getIdols" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT followed
+        FROM follow
+        WHERE num = #{num}
+    </select>
+    <select id="getComments" parameterType="java.lang.String" resultType="com.example.test.bean.Comments">
+        SELECT *
+        FROM stu_comments
+        WHERE up_num = #{num}
+    </select>
+    <select id="getStudentsNum" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT course_info.*
+        FROM course_info INNER JOIN teachers_course_info
+        ON teachers_course_info.id = #{id}
+        AND course_info.id = teachers_course_info.select_course_id
+    </select>
 </mapper>

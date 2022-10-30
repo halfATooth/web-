@@ -149,24 +149,24 @@ public class GetAllInfoImpl implements GetAllInfo {
 //        //标签
 //        //tagMapper.deleteTags();
 //        List<Grades> gr = courseMapper.getAllGrades();
-//        List<Integer> ids = new ArrayList<>();
-//        ids.add(gr.get(0).getId());
+//        List<String> ids = new ArrayList<>();
+//        ids.add(gr.get(0).getNum());
 //        for(int i=1;i< gr.size();i++){
 //            Grades grades = gr.get(i);
 //            boolean p = true;
-//            for (Integer integer : ids) {
-//                if (integer == grades.getId()) {
+//            for (String s : ids) {
+//                if (s == grades.getNum()) {
 //                    p = false;
 //                    break;
 //                }
 //            }
-//            if(p) ids.add(grades.getId());
+//            if(p) ids.add(grades.getNum());
 //        }
 //        for(int i=0;i<ids.size();i++){
-//            Integer uid = ids.get(i);
+//            String uid = ids.get(i);
 //            Double max = -1.0;
 //            for (Grades grades : gr) {
-//                if (grades.getId() == uid && grades.getGpa() > max)
+//                if (grades.getNum() == uid && grades.getGpa() > max)
 //                    max = grades.getGpa();
 //            }
 //            List<DayOff> dayOffs = dayOffMapper.getDayOff(uid);
@@ -203,42 +203,42 @@ public class GetAllInfoImpl implements GetAllInfo {
 //        if(tagList.get(index).getCost() <= -3000)
 //            tags.add("土豪");
 //
-////        List<Double> gpas = new ArrayList<>();
-////        for (Grades grades : gr) {
-////            Double gpa = grades.getGpa();
-////            gpas.add(gpa);
-////        }
-////        Collections.sort(gpas);
-////        List<Grades> gr_per = courseMapper.getGrades(id);
-////        List<Double> gpas_per = new ArrayList<>();
-////        for (Grades grades : gr_per) {
-////            Double gpa = grades.getGpa();
-////            gpas_per.add(gpa);
-////        }
-////        boolean isKing = false;
-////        for(int i=0;i<gpas_per.size();i++){
-////            for(int j=0;j<gpas.size();j++){
-////                Double p = gpas_per.get(i);
-////                Double a = gpas.get(j);
-////                if(p<=a){
-////                    if((gpas.size()-j)*1.0/gpas.size() <= 0.3)
-////                        isKing = true;
-////                    break;
-////                }
-////            }
-////        }
-////        if(isKing)tags.add("学霸");
+//        List<Double> gpas = new ArrayList<>();
+//        for (Grades grades : gr) {
+//            Double gpa = grades.getGpa();
+//            gpas.add(gpa);
+//        }
+//        Collections.sort(gpas);
+//        List<Grades> gr_per = courseMapper.getGrades(id);
+//        List<Double> gpas_per = new ArrayList<>();
+//        for (Grades grades : gr_per) {
+//            Double gpa = grades.getGpa();
+//            gpas_per.add(gpa);
+//        }
+//        boolean isKing = false;
+//        for(int i=0;i<gpas_per.size();i++){
+//            for(int j=0;j<gpas.size();j++){
+//                Double p = gpas_per.get(i);
+//                Double a = gpas.get(j);
+//                if(p<=a){
+//                    if((gpas.size()-j)*1.0/gpas.size() <= 0.3)
+//                        isKing = true;
+//                    break;
+//                }
+//            }
+//        }
+//        if(isKing)tags.add("学霸");
 //
 //
 //
-////        res.put("student",getStudent(id));
-////        res.put("course",getCourse(id));
-////        res.put("practice",getPractices(id,null));
-////        res.put("honor",getHonor(id));
-////        res.put("daily",getDaily(id,null));
-////        res.put("dayOff",getDayOff(id));
-////        res.put("payment",getPayment(id));
-////        res.put("tag",tags);
+//        res.put("student",getStudent(id));
+//        res.put("course",getCourse(id));
+//        res.put("practice",getPractices(id,null));
+//        res.put("honor",getHonor(id));
+//        res.put("daily",getDaily(id,null));
+//        res.put("dayOff",getDayOff(id));
+//        res.put("payment",getPayment(id));
+//        res.put("tag",tags);
         return res;
     }
 }

@@ -16,7 +16,6 @@ public interface CourseMapper extends BaseMapper<Course> {
     void addHomework(Homework homework);
     void addGrades(Grades grades);
     void addEvaluation(Evaluate evaluate);
-
     List<Course> getCourses();
     Course getCourse(Integer course_id);
     List<Course> getSelectedCourse(Integer id);
